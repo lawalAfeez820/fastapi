@@ -20,7 +20,7 @@ search: Optional[str]= "" ,current_user: models.Users =  Depends(auth2.get_curre
     return query
 
 
-@router.post("/", response_model=models.ResponseType)
+@router.post("/", response_model=models.ResponseType, status_code= 201)
 async def create_post(post: models.CreatePost, db: Session = Depends(database.get_session),
 current_user: models.Users =  Depends(auth2.get_current_user)):
 

@@ -8,7 +8,7 @@ from . import config
 
 
 SQLMODEL_DATABASE_URL= f"postgresql+{config.settings.database_driver}://{config.settings.database_user}:{config.settings.database_password}@{config.settings.database_host}:{config.settings.database_port}/{config.settings.database_name}"
-SQLMODEL_ALEMBIC_URL= f"postgresql+{config.settings.database_driver}://{config.settings.database_user}:{config.settings.alembic_password}@{config.settings.database_host}:{config.settings.database_port}/{config.settings.database_name}"
+#SQLMODEL_ALEMBIC_URL= f"postgresql+{config.settings.database_driver}://{config.settings.database_user}:{config.settings.alembic_password}@{config.settings.database_host}:{config.settings.database_port}/{config.settings.database_name}"
 
 engine = create_async_engine(SQLMODEL_DATABASE_URL,future= True)
 

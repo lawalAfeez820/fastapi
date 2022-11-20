@@ -46,20 +46,21 @@ class CreateUser(SQLModel):
     email: EmailStr
     password: str
 
-class UserOut(SQLModel):
+class UserOuts(SQLModel):
     email: str
     id: int
     created_at: datetime
+    
 
 class ResponseType(CreatePost):
     user_id: int
-    owner: UserOut
+    owner: UserOuts
 
 class TokenData(SQLModel):
     id: int
 
 class Token(SQLModel):
-    token: str
+    access_token: str
     token_type:str
 
 class Voters(SQLModel):

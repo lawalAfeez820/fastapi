@@ -11,7 +11,7 @@ class Setting(BaseSettings):
 
     access_token_expire_minutes: int
     algorithm: str
-    alembic_password: str
+    
 
 
     class Config:

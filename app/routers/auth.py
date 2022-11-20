@@ -12,7 +12,7 @@ router = APIRouter(
 async def login(detail: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(database.get_session)):
 
     
-    users = await db.exec(select(models.Users).where(models.Users.email == detail.username))
+    users = await db.exec(select(models.Users).where(models.Users.email == detail.username.lower()))
     user = users.first()
     
 
@@ -24,7 +24,9 @@ async def login(detail: OAuth2PasswordRequestForm = Depends(), db: Session = Dep
 
     token = auth2.create_access_token(data= {"user_id":user.id})
 
-    data = models.Token(token= token, token_type= "bearer")
+    data = models.Token(access_token= token, token_type= "bearer")
 
     return data
+
+    
 
