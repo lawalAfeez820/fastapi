@@ -15,6 +15,8 @@ async def test_get_all_post(
 
     assert res.status_code == 200
 
+    
+
 @pytest.mark.asyncio
 async def test_creat_post(
    Autorized_Client

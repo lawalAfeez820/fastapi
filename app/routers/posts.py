@@ -1,4 +1,4 @@
-from typing import List, Dict,Optional, Tuple
+from typing import List, Dict,Optional, Tuple, Union
 from .. import database, models, auth2
 from sqlmodel import Session, select
 from fastapi import Depends, HTTPException, status, Response, APIRouter
@@ -9,7 +9,7 @@ router = APIRouter(
 )
 
 
-@router.get("/" , response_model=Dict | List[models.ResponseType])
+@router.get("/" , response_model=Union[Dict , List[models.ResponseType]])
 async def get_post(db: Session = Depends(database.get_session), limit:int = 2, skip:int = 0,
 search: Optional[str]= "" ,current_user: models.Users =  Depends(auth2.get_current_user)): 
 
