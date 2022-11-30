@@ -5,15 +5,15 @@ on: [push]
 jobs:
   job1:
     env:
-      DATABASE_DRIVER=asyncpg
-      DATABASE_USER=postgres
-      DATABASE_PASSWORD=password123
-      DATABASE_PORT=5432
-      DATABASE_NAME=fastapi
-      DATABASE_HOST=localhost
-      SECRET_KEY=70a470ad09c28148da5250061c34433e
-      ACCESS_TOKEN_EXPIRE_MINUTES=30
-      ALGORITHM=HS256
+      DATABASE_DRIVER: asyncpg
+      DATABASE_USER: postgres
+      DATABASE_PASSWORD: password123
+      DATABASE_PORT: 5432
+      DATABASE_NAME: fastapi
+      DATABASE_HOST: localhost
+      SECRET_KEY: 70a470ad09c28148da5250061c34433e
+      ACCESS_TOKEN_EXPIRE_MINUTES: 30
+      ALGORITHM: HS256
     runs-on: ubuntu-latest
     steps:
       - name: pulling codes
