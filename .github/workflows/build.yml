@@ -1,0 +1,13 @@
+name: Build and deploy codes
+
+on: [push]
+
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: pulling codes
+        uses: action/checkout@v2
+      - name: say hi
+        run: echo "hello world"
+       
