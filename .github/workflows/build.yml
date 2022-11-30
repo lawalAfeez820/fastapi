@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: pulling codes
-        uses: action/checkout@v2
+        uses: action/checkout@v3
       - name: say hi
         run: echo "hello world"
        
