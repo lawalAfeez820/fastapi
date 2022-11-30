@@ -4,16 +4,18 @@ on: [push]
 
 jobs:
   job1:
+    environment:
+      name: testing
     env:
-      DATABASE_DRIVER: asyncpg
-      DATABASE_USER: postgres
-      DATABASE_PASSWORD: password123
-      DATABASE_PORT: 5432
-      DATABASE_NAME: fastapi
-      DATABASE_HOST: localhost
-      SECRET_KEY: 70a470ad09c28148da5250061c34433e
-      ACCESS_TOKEN_EXPIRE_MINUTES: 30
-      ALGORITHM: HS256
+      DATABASE_DRIVER: ${{secrets.DATABASE_DRIVER}}
+      DATABASE_USER: ${{secrets.DATABASE_USER}}
+      DATABASE_PASSWORD: ${{secrets.DATABASE_PASSWORD}}
+      DATABASE_PORT: ${{secrets.DATABASE_PORT}}
+      DATABASE_NAME: ${{secrets.DATABASE_NAME}}
+      DATABASE_HOST: ${{secrets.DATABASE_HOST}}
+      SECRET_KEY: ${{secrets.SECRET_KEY}}
+      ACCESS_TOKEN_EXPIRE_MINUTES: ${{secrets.ACCESS_TOKEN_EXPIRE_MINUTES}}
+      ALGORITHM: ${{secrets.ALGORITHM}}
     runs-on: ubuntu-latest
     steps:
       - name: pulling codes
