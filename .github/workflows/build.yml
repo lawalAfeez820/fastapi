@@ -8,6 +8,13 @@ jobs:
     steps:
       - name: pulling codes
         uses: actions/checkout@v3
-      - name: say hi
-        run: echo "hello world"
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - name: upgrade pip
+        run: python -m pip install --upgrade pip
+      - name: install packages
+        run: pip install -r requirements.txt
+
        
