@@ -3,7 +3,7 @@ name: Build and deploy codes
 on: [push]
 
 jobs:
-  job1:
+  build:
     environment:
       name: Testing
     env:
@@ -25,7 +25,7 @@ jobs:
           POSTGRES_PASSWORD: ${{secrets.DATABASE_PASSWORD}}
           POSTGRESS_DB: ${{secrets.POSTGRESS_DB}}
         ports: 
-        - 5432:5432
+          - 5432:5432
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
