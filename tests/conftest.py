@@ -1,6 +1,6 @@
 import asyncio
 from typing import Generator
-from app import models
+from app import models, schemas
 import pytest
 import pytest_asyncio
 from httpx import AsyncClient
@@ -40,7 +40,6 @@ async def async_session() -> AsyncSession:
 
    #await async_engine.dispose()
 
-
 @pytest_asyncio.fixture
 async def async_client(async_session):
 
@@ -58,7 +57,7 @@ async def async_client(async_session):
        yield client
 
 @pytest_asyncio.fixture
-async def User(async_client):
+async def User1(async_client):
     data = {"email":"adekunle@gmail.com","password": "test"}
     res = await async_client.post("/users/", json= data)
     res = res.json()
@@ -66,21 +65,48 @@ async def User(async_client):
     return res
 
 @pytest_asyncio.fixture
-async def Login(async_client, User):
-    res = await async_client.post("/login",  data={"username": User["email"], "password": User["password"]})
+async def Login1(async_client, User1):
+    res = await async_client.post("/login",  data={"username": User1["email"], "password": User1["password"]})
 
-    res = models.Token(**res.json())
+    res = schemas.Token(**res.json())
 
     return res.access_token
 
 @pytest_asyncio.fixture
-async def Autorized_Client(async_client, Login):
-    async_client.headers = {**async_client.headers, "Authorization": f"Bearer {Login}"}
+async def Autorized_Client1(async_client, Login1):
+    async_client.headers = {**async_client.headers, "Authorization": f"Bearer {Login1}"}
     return async_client
 
 @pytest_asyncio.fixture
-async def post(Autorized_Client):
+async def post1(Autorized_Client1):
     data = {"title": "food", "content": "food is life"}
-    res = await Autorized_Client.post("/posts/", json = data)
-    res = models.ResponseType(** res.json())
+    res = await Autorized_Client1.post("/posts/", json = data)
+    res = schemas.ResponseType(** res.json())
     return res
+
+@pytest_asyncio.fixture
+async def User2(async_client):
+    data = {"email":"adekunl@gmail.com","password": "test"}
+    res = await async_client.post("/users/", json= data)
+    res = res.json()
+    res["password"] = data["password"]
+    return res
+
+@pytest_asyncio.fixture
+async def Login2(async_client, User2):
+    res = await async_client.post("/login",  data={"username": User2["email"], "password": User2["password"]})
+
+    res = schemas.Token(**res.json())
+
+    return res.access_token
+
+@pytest_asyncio.fixture
+async def Autorized_Client2(async_client, Login2):
+    async_client.headers = {**async_client.headers, "Authorization": f"Bearer {Login2}"}
+    return async_client
+
+
+
+
+
+

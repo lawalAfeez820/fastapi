@@ -3,11 +3,14 @@ from fastapi import FastAPI
 from .database import init_db , engine
 from .routers import users, posts, auth, vote
 from . import models
+from fastapi.staticfiles import StaticFiles
 
 
 
 
 app = FastAPI()
+
+app.mount("/static", StaticFiles(directory = "static"), name ="static")
 
 @app.on_event("startup")
 async def on_startup():

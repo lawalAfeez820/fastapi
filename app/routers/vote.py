@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, status,HTTPException
-from .. import models, auth2, database
+from .. import models, auth2, database, schemas
 from sqlmodel import Session, select
 import sqlalchemy
 from typing import Dict
@@ -10,12 +10,18 @@ router = APIRouter(
 )
 
 @router.post("/", response_model = Dict, status_code= status.HTTP_201_CREATED)
-async def vote(post: models.Voters, current_user: models.Users =  Depends(auth2.get_current_user), 
+async def vote(post: schemas.Voters, current_user: models.Users =  Depends(auth2.get_current_user), 
 db: Session = Depends(database.get_session)):
     vote: models.Vote = models.Vote(post_id = post.post_id, user_id = current_user.id)
+    is_user_post = await db.exec(select(models.Posts).where(models.Posts.id == post.post_id))
+    is_user_post = is_user_post.first()
+    if is_user_post.user_id == current_user.id:
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT,
+                detail= f"You cannot perform vote operation on your own post")
+    
     if post.vote_dir == 1:
         try:
-            check = await db.exec(select(models.Posts).where(models.Posts.id ==post.post_id))
+            check = await db.exec(select(models.Posts).where(models.Posts.id == post.post_id))
             if not check.first():
                 raise HTTPException(status_code=status.HTTP_409_CONFLICT,
                 detail= f"Trying to vote on a post that does not exist")
