@@ -16,6 +16,9 @@ jobs:
       SECRET_KEY: ${{secrets.SECRET_KEY}}
       ACCESS_TOKEN_EXPIRE_MINUTES: ${{secrets.ACCESS_TOKEN_EXPIRE_MINUTES}}
       ALGORITHM: ${{secrets.ALGORITHM}}
+      EMAIL: ${{secrets.EMAIL}}
+      EMAIL_PASSWORD: ${{secrets.EMAIL_PASSWORD}}
+      LOCALHOST: ${{secrets.LOCALHOST}}
     services:
       # Label used to access the service container
       postgres:
